@@ -17,4 +17,4 @@ Write	a	process	that	imports	the	contents	of	a	JSON-file	cleanly	and	consistentl
 .env was committed to allow smooth running locally
 
 
-This challenge assumes that you have git bash and doker installed
+This challenge assumes that you have git bash and docker installed
