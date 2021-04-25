@@ -15,3 +15,6 @@ Write	a	process	that	imports	the	contents	of	a	JSON-file	cleanly	and	consistentl
 - DB can be accessed at mysql://localhost:3306/tunga, check .env example for 
 
 .env was committed to allow smooth running locally
+
+
+This challenge assumes that you have git bash and doker installed
