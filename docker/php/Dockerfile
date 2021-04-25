@@ -5,6 +5,7 @@ RUN apk add --no-cache \
         libpng \
         libpng-dev \
         libjpeg \
+        dos2unix \
         icu \
         icu-dev \
         libxml2 \
@@ -39,6 +40,4 @@ RUN composer global require phpunit/phpunit
 WORKDIR /src
 COPY ./src/ ./
 RUN composer install
-RUN apk add --update nodejs 
-RUN apk add --update npm 
-RUN apk add yarn
+RUN dos2unix ./install.sh
