@@ -1,0 +1,50 @@
+version: "3"
+        
+services:  
+    # nginx
+    tunga-nginx-server:
+        container_name: ${PROJECT_NAME}_nginx
+        build: ./docker/nginx
+        volumes:
+            - ./src:/src
+            - ./docker/nginx/conf.d:/etc/nginx/conf.d
+        links:
+            - php-fpm
+        ports:
+            - 8080:8080
+        working_dir: /src
+       
+    # php
+    php-fpm:
+        container_name: ${PROJECT_NAME}_php-fpm
+        
+        # command: 'php artisan migrate'
+        build: 
+            context: .
+            dockerfile: ./docker/php/Dockerfile
+        links:
+            - tunga-mysql
+            - tunga-redis
+        volumes:
+            - ./src:/src
+       
+        
+    # database
+    tunga-mysql:
+        container_name: ${PROJECT_NAME}_mysql
+        image: mysql
+        volumes: 
+            - ./database:/var/lib/mysql
+        ports:
+            - 3306:3306
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    # redis
+    tunga-redis:
+        container_name: ${PROJECT_NAME}_redis
+        image: redis:alpine
